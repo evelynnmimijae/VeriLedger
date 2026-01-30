@@ -1,0 +1,1 @@
+This folder contains the Aleo Wave 1 proof-of-policy module for VeriLedger. It proves that a lending request meets risk and collateral requirements without revealing borrower data.

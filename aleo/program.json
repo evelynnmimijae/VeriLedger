@@ -1,0 +1,9 @@
+{
+    "program": "lending_policy_ejones_v1.aleo",
+    "version": "0.1.0",
+    "description": "Lending Policy Program",
+    "license": "MIT",
+    "author": "VeriLedger",
+    "dependencies": null,
+    "dev_dependencies": null
+}

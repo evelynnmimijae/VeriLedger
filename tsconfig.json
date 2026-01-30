@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "declaration": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "*.ts",
+    "ethers-lib.ts",
+    "web3-lib.ts",
+    "deploy_with_ethers.ts",
+    "deploy_with_web3.ts"
+  ],
+  "exclude": ["node_modules", "dist", "aleo", "iexec", "contracts"]
+}

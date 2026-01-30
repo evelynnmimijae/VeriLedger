@@ -1,0 +1,13 @@
+{
+    "public_metadata": {
+      "threadId": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+      "requestTimestamp": 1706260000
+    },
+    "private_data": {
+      "loanAmount": 50000,
+      "collateralValue": 65000,
+      "collateralAsset": "ETH",
+      "creditScore": 720,
+      "borrowerSecret": "my-super-secret-identity-hash"
+    }
+  }

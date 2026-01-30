@@ -1,0 +1,41 @@
+{
+  "name": "veriledger-defi",
+  "version": "0.1.0",
+  "description": "VeriLedger DeFi – blockchain data storage and security for regulated industries. Lending policy (Aleo), loan-thread coordination (EVM), and risk evaluation (iExec).",
+  "license": "MIT",
+  "author": "VeriLedger",
+  "main": "ethers-lib.ts",
+  "scripts": {
+    "deploy:ethers": "npx ts-node deploy_with_ethers.ts",
+    "deploy:web3": "npx ts-node deploy_with_web3.ts",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ethers": "^6.10.0",
+    "web3": "^4.11.0",
+    "web3-eth-contract": "^4.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "veriledger",
+    "defi",
+    "blockchain",
+    "avalanche",
+    "aleo",
+    "iexec",
+    "lending",
+    "ethers",
+    "web3"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/The-Web3-Cr34tive-Agency/VeriLedger-defi"
+  }
+}
