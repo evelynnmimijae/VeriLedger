@@ -9,6 +9,6 @@ import { deploy } from './ethers-lib'
     const result = await deploy('Storage', [])
     console.log(`address: ${result.address}`)
   } catch (e) {
-    console.log(e.message)
+    console.log((e as Error).message)
   }
 })()

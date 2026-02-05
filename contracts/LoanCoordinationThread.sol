@@ -21,6 +21,7 @@ contract CommunicationsTool {
         string ciphertextURI;  // IPFS/Arweave/HTTPS location
         uint256 sequenceNumber; // strict ordering per thread
         uint256 timestamp;
+        bytes32 payloadHash; // Feb 4 - Hash storage
     }
 
     // Mapping to store thread actions for each thread
@@ -65,7 +66,13 @@ contract CommunicationsTool {
     event ProofSent(bytes32 indexed threadId, address indexed sender, uint256 sequenceNumber, uint256 timestamp);
     event ApprovalReceived(bytes32 indexed threadId, address indexed sender, uint256 sequenceNumber, uint256 timestamp);
     event RejectionReceived(bytes32 indexed threadId, address indexed sender, uint256 sequenceNumber, uint256 timestamp);
-    event RiskEvaluationResultReceived(bytes32 indexed threadId, address indexed sender, uint256 sequenceNumber, uint256 timestamp);
+    event RiskEvaluationResultReceived(
+        bytes32 indexed threadId, 
+        address indexed sender, 
+        uint256 sequenceNumber, 
+        uint256 timestamp, 
+        bytes32 resultHash
+        );
 
     // ============================ Functions ============================
 
@@ -77,8 +84,9 @@ contract CommunicationsTool {
             threadId: threadId,
             messageType: MessageType.REQUEST,
             ciphertextURI: "",
-            sequenceNumber: currentSequenceNumber, // initial sequence number for the thread
-            timestamp: block.timestamp
+            sequenceNumber: currentSequenceNumber,
+            timestamp: block.timestamp,
+            payloadHash: bytes32(0)
         }));
         sequenceNumbers[threadId] = 1; // increment sequence number for the thread
         emit ThreadCreated(threadId, msg.sender, sequenceNumbers[threadId], block.timestamp);
@@ -93,14 +101,15 @@ contract CommunicationsTool {
             messageType: MessageType.RISK_REQUESTED,
             ciphertextURI: "",
             sequenceNumber: currentSequenceNumber,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            payloadHash: bytes32(0)
         }));
         sequenceNumbers[threadId]++;
         emit RiskEvaluationRequested(threadId, msg.sender, currentSequenceNumber, block.timestamp);
     }
 
     // Function to receive a message from a thread
-    function receiveRiskEvaluation(bytes32 threadId) public {
+    function receiveRiskEvaluation(bytes32 threadId, bytes32 resultHash) public {
         uint256 currentSequenceNumber = sequenceNumbers[threadId];
         threadActions[threadId].push(ThreadAction({
             sender: msg.sender,
@@ -108,14 +117,15 @@ contract CommunicationsTool {
             messageType: MessageType.RISK_EVALUATED,
             ciphertextURI: "",
             sequenceNumber: currentSequenceNumber,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            payloadHash: resultHash
         }));
         sequenceNumbers[threadId]++;
         emit RiskEvaluationReceived(threadId, msg.sender, sequenceNumbers[threadId], block.timestamp);
     }
 
     // Function to send a proof to a thread for risk evaluation
-    function sendProof(bytes32 threadId) public {
+    function sendProof(bytes32 threadId, bytes32 resultHash) public {
         uint256 currentSequenceNumber = sequenceNumbers[threadId];
         threadActions[threadId].push(ThreadAction({
             sender: msg.sender,
@@ -123,14 +133,15 @@ contract CommunicationsTool {
             messageType: MessageType.PROOF,
             ciphertextURI: "",
             sequenceNumber: currentSequenceNumber,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            payloadHash: resultHash
         }));
         sequenceNumbers[threadId]++;
         emit ProofSent(threadId, msg.sender, currentSequenceNumber, block.timestamp);
     }
     
     // Function for the iExec worker to call with the result of the risk evaluation
-    function receiveRiskEvaluationResult(bytes32 threadId, bool /* result */) public {
+    function receiveRiskEvaluationResult(bytes32 threadId, bytes32 resultHash) public {
         uint256 currentSequenceNumber = sequenceNumbers[threadId];
         threadActions[threadId].push(ThreadAction({
             sender: msg.sender,
@@ -138,10 +149,17 @@ contract CommunicationsTool {
             messageType: MessageType.RISK_RESULT,
             ciphertextURI: "",
             sequenceNumber: currentSequenceNumber,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            payloadHash: bytes32(0)
         }));
         sequenceNumbers[threadId]++;
-        emit RiskEvaluationResultReceived(threadId, msg.sender, currentSequenceNumber, block.timestamp);
+        emit RiskEvaluationResultReceived(
+            threadId, 
+            msg.sender, 
+            currentSequenceNumber, 
+            block.timestamp, 
+            resultHash
+        );
     }
 
     // Function to receive approval for the loan
@@ -153,7 +171,8 @@ contract CommunicationsTool {
             messageType: MessageType.APPROVAL,
             ciphertextURI: "",
             sequenceNumber: currentSequenceNumber,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            payloadHash: bytes32(0)
         }));
         sequenceNumbers[threadId]++;
         emit ApprovalReceived(threadId, msg.sender, currentSequenceNumber, block.timestamp);
@@ -168,7 +187,8 @@ contract CommunicationsTool {
             messageType: MessageType.REJECTION,
             ciphertextURI: "",
             sequenceNumber: currentSequenceNumber,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            payloadHash: bytes32(0)
         }));
         sequenceNumbers[threadId]++;
         emit RejectionReceived(threadId, msg.sender, currentSequenceNumber, block.timestamp);

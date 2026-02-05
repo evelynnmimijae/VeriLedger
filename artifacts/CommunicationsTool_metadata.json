@@ -191,6 +191,12 @@
 						"internalType": "uint256",
 						"name": "timestamp",
 						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "resultHash",
+						"type": "bytes32"
 					}
 				],
 				"name": "RiskEvaluationResultReceived",
@@ -307,6 +313,11 @@
 								"internalType": "uint256",
 								"name": "timestamp",
 								"type": "uint256"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "payloadHash",
+								"type": "bytes32"
 							}
 						],
 						"internalType": "struct CommunicationsTool.ThreadAction[]",
@@ -323,6 +334,11 @@
 						"internalType": "bytes32",
 						"name": "threadId",
 						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "resultHash",
+						"type": "bytes32"
 					}
 				],
 				"name": "receiveRiskEvaluation",
@@ -338,9 +354,9 @@
 						"type": "bytes32"
 					},
 					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
+						"internalType": "bytes32",
+						"name": "resultHash",
+						"type": "bytes32"
 					}
 				],
 				"name": "receiveRiskEvaluationResult",
@@ -398,6 +414,11 @@
 					{
 						"internalType": "bytes32",
 						"name": "threadId",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "resultHash",
 						"type": "bytes32"
 					}
 				],
@@ -469,6 +490,11 @@
 						"internalType": "uint256",
 						"name": "timestamp",
 						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "payloadHash",
+						"type": "bytes32"
 					}
 				],
 				"stateMutability": "view",
@@ -503,11 +529,11 @@
 	},
 	"sources": {
 		"contracts/LoanCoordinationThread.sol": {
-			"keccak256": "0x59728388a153fa5f8370969c1695f2b7662bc4482c59468dcfec89342252ade1",
+			"keccak256": "0x1de6281652bd54468f2dcaa0fd09bf5a80913acb6b3bffc55de0c88412044610",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3ba0d099ce455e80868addb87b9822dbbdcb011e3250d09349031149bebcfb73",
-				"dweb:/ipfs/Qmd9fyVLCuuCoqBTZvFKixF34B5MpBTLLiYKGozpt4Sicd"
+				"bzz-raw://335c68e080115a95b35833fdc639d8173fd9d4bca4b6945f51b25b296ab2bf03",
+				"dweb:/ipfs/QmVbWBfCUF7gJagVuc4CJrcswRzmdjcT6g1bE6UaXs8w1Q"
 			]
 		}
 	},
